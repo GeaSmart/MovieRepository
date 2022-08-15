@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using MovieRepository.Entity;
 using MovieRepository.Models;
 using System;
 using System.Collections.Generic;
@@ -27,6 +28,9 @@ namespace MovieRepository
         {
             services.AddDbContext<ApplicationDBContext>(options => 
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
+
             services.AddRazorPages();
         }
 
